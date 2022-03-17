@@ -1,0 +1,139 @@
+
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+{% comment %} {% load widget_tweaks %} {% endcomment %}
+
+{% block title %}Capture{% endblock title %}
+{% block body %}
+<div class="d-flex flex-row h-auto my-5 py-5  flex-wrap justify-content-center " style="min-width:200px; background-color:#E5E7E9;;">
+    <div class="py-2 px-5 " style="width: 720px; background-color:#A569BD;">
+        <form  method="post" action="/captured_translate" enctype="multipart/form-data" >
+            {% csrf_token %}
+                <div id="header" class="text-center my-2 p-2">
+                    <h4 style="top:20px">Capture Image</h4>
+                </div>
+                <div id="form" class="py-2">
+                    {% csrf_token %}
+                    <div class="d-flex bd-highlight text-center justify-content-around flex-wrap">
+                        <div class="col py-3 justify-content-around"> 
+                            <video class="shadow rounded" style="background-color:#CACFD2 ;" id="video" width="320px" height="240px" autoplay></video>
+                            <button id="start-camera" class="btn text-light w-75" style="background-color: #C0392B ; border:none;">Start Camera</button>
+                        </div>
+                        <div class="col py-3">
+                            <canvas class="shadow rounded" style="background-color: #CACFD2 ;" id="canvas" width="300px" height="240px"></canvas>
+                            <button id="click-photo" class="btn text-light w-75" style="background-color: #C0392B ; border:none;">Click Photo</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid my-2" style="height:2px; background-color:#17202A ;"></div>
+                <div id="submit" class="d-flex flex-row py-2 justify-content-around flex-wrap">
+                    <div class="d-flex flex-column">
+                        <select id="inputLang" name="lang_ip" class="form-control my-2 mx-0 " style="width: 250px;" required>
+                            <option value="" selected>Choose language</option>
+                            <option value="Marathi">Marathi</option>
+                            <option value="English">English</option>
+                            <option value="French">French</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Spanish">Spanish</option>
+                        </select>
+                    </div>
+                    <div class="d-flex flex-column align-items-center" style="width:50px;" >
+                        <h4>To</h4>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <select id="inputLang" name="trans_ip" class="form-control my-2 mx-0 "
+                        style="width: 250px;" required>
+                        <option value="" selected>Choose language</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Spanish">Spanish</option>
+                    </select>
+                    </div>
+                </div>
+
+                <div id="submit_btn" class="text-center my-2">
+                    <button type="submit" class="btn text-light" style="width:150px; background-color: #7B241C;">Submit</button>
+                </div>
+                <div id="img_uploaded my-3 py-2" class="text-center" style="max-height:450px;">
+                     <img  src={{img.photo.url}} class="img-fluid my-5" style="max-height :400px;border-radius:20px;" alt="Not Yet Uploaded">
+                </div>
+        </form>
+    </div>
+
+    <div class="p-2 px-3 " style="width: 720px; background-color: #5DADE2  ;">
+        <div id="extract_header">
+            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Extracted Text from Image</h4>
+        </div>
+        <div id="extract_text" style="max-height:300px; overflow:auto">
+            <p class="text-black">{{img2char}}</p>
+   
+        </div>
+        <div id="trans_header">
+            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Translated Text from Image</h4>
+        </div>
+        <div id="trans_text" class="scrollbar scrollbar-primary"  style="max-height:300px; overflow:auto">
+            <div class="force-overflow">
+                <p>{{translated_text}}</p>
+
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+let camera_button = document.querySelector("#start-camera");
+let video = document.querySelector("#video");
+let click_button = document.querySelector("#click-photo");
+let canvas = document.querySelector("#canvas");
+
+camera_button.addEventListener('click', async function(e) {
+    e.preventDefault();
+   	let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+	video.srcObject = stream;
+});
+
+click_button.addEventListener('click', function(e) {
+    e.preventDefault();
+   	canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+   	let image_data_url = canvas.toDataURL('image/jpeg',1.0);
+   	// data url of the image
+   	//console.log(image_data_url);
+    //ajax post request
+
+    const body = {
+        'data_url' : image_data_url
+    }
+    $.ajax({
+        method : "POST",
+        url: "/capture",
+        data : body,
+      
+    })
+        .done((response)=>{
+            console.log(response)
+        })
+        .fail((response)=>{
+            console.log(response)
+        })
+  
+}); 
+
+
+
+
+</script>
+{% endblock body %}
+
+
+
+
+
+
+
+

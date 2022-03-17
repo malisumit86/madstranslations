@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+{% comment %} {% load widget_tweaks %} {% endcomment %}
+
+{% block title %}Home{% endblock title %}
+{% block body %}
+<div class="d-flex flex-row h-auto my-5 py-5  flex-wrap justify-content-center " style="min-width:200px; background-color:#E5E7E9;;">
+    <div class="py-2 px-5 " style="width: 720px; background-color:#A569BD;">
+        <form  method="post" action="" enctype="multipart/form-data" >
+            {% csrf_token %}
+                <div id="header" class="text-center my-2 p-2">
+                    <h4 style="top:20px">Upload Image</h4>
+                </div>
+                <div id="form" class="py-2">
+                    {{form}}
+                </div>
+                <div id="submit" class="d-flex flex-row py-2 justify-content-between flex-wrap">
+                    <div class="d-flex flex-column">
+                        <select id="inputLang" name="lang_ip" class="form-control my-2 mx-0 " style="width: 220px;" required>
+                            <option value="" selected>Choose language</option>
+                            <option value="Marathi">Marathi</option>
+                            <option value="English">English</option>
+                            <option value="French">French</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Spanish">Spanish</option>
+                        </select>
+                    </div>
+                    <div class="d-flex flex-column align-items-center" style="width:50px;" >
+                        <h4>To</h4>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <select id="inputLang" name="trans_ip" class="form-control my-2 mx-0 "
+                        style="width: 220px;" required>
+                        <option value="" selected>Choose language</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Spanish">Spanish</option>
+                    </select>
+                    </div>
+                </div>
+
+                <div id="submit_btn" class="text-center my-2">
+                    <button type="submit" class="btn text-light" style="width:150px; background-color: #7B241C;">Submit</button>
+                </div>
+                <div id="img_uploaded my-3 py-2" class="text-center" style="max-height:450px;">
+                     <img  src={{img.photo.url}} class="img-fluid my-5" style="max-height :400px;border-radius:20px;" alt="Not Yet Uploaded">
+                </div>
+        </form>
+    </div>
+
+    <div class="p-2 px-3 " style="width: 720px; background-color: #5DADE2  ;">
+        <div id="extract_header">
+            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Extracted Text from Image</h4>
+        </div>
+        <div id="extract_text" style="max-height:300px; overflow:auto">
+            <p class="text-black">{{img2char}}</p>
+   
+        </div>
+        <div id="trans_header">
+            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Translated Text from Image</h4>
+        </div>
+        <div id="trans_text" class="scrollbar scrollbar-primary"  style="max-height:300px; overflow:auto">
+            <div class="force-overflow">
+                <p>{{translated_text}}</p>
+
+            </div>
+            
+        </div>
+
+    </div>
+</div>
+<div class="conatiner text-center p-4">
+    <h4>Detected Text </h4>
+</div>
+<div class="container p-5 h-50 text-center mb-5 " style="background-color: #A6ACAF;"> 
+    <div class="d-flex justify-content-around flex-wrap">
+        <div class="my-3">
+            <img src={{img.photo.url}}  style="max-height:400px;" alt="!!!Not yet uploaded...." class="img-fluid">
+        </div>
+        <div class="" style="width: 2px; background-color: #E5E7E9;"></div>
+        <div class="my-3">
+            <img src={{plot_path}} style="max-height:400px;" alt="!!!Not yet uploaded/Blank...." class="img-fluid">
+        </div>
+    </div>
+    
+</div>
+
+
+<footer class="text-center text-white" style="background-color: #f1f1f1;">
+    <!-- Grid container -->
+    <div class="container pt-4">
+      <!-- Section: Social media -->
+      <section class="mb-4">
+        <!-- Facebook -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-facebook-f"></i
+        ></a>
+  
+        <!-- Twitter -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-twitter"></i
+        ></a>
+  
+        <!-- Google -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-google"></i
+        ></a>
+  
+        <!-- Instagram -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-instagram"></i
+        ></a>
+  
+        <!-- Linkedin -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-linkedin"></i
+        ></a>
+        <!-- Github -->
+        <a
+          class="btn btn-link btn-floating btn-lg text-dark m-1"
+          href="#!"
+          role="button"
+          data-mdb-ripple-color="dark"
+          ><i class="fab fa-github"></i
+        ></a>
+      </section>
+      <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+  
+    <!-- Copyright -->
+    <div class="text-center text-dark p-3 " style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2020 Copyright:
+      <a class="text-dark text-decoration-none" href="https://mdbootstrap.com/">MAD'S Translation</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+
+
+{% endblock body %}
