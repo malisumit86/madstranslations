@@ -128,9 +128,13 @@
       
         <!-- Copyright -->
         <div class="text-center text-dark p-3 " style="background-color: rgba(0, 0, 0, 0.2);">
-          © 2020 Copyright:
+          © 
+          <span id="copyrightYear"></span>
           <a class="text-dark text-decoration-none" href="https://mdbootstrap.com/">MAD'S Translation</a>
-        </div>
+    <script>
+    let year = new Date().getFullYear();
+    document.getElementById("copyrightYear").innerHTML = year + " Copyright";
+    </script>
         <!-- Copyright -->
       </footer>
 

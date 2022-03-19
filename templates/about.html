@@ -245,10 +245,14 @@
   <!-- Section: Links  -->
 
   <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2022 Copyright
-    <a class="text-reset text-decoration-none fw-bold" href="">MAD'S Translation</a>
-  </div>
+  <div class="text-center text-dark p-3 " style="background-color: rgba(0, 0, 0, 0.2);">
+    © 
+    <span id="copyrightYear"></span>
+    <a class="text-dark text-decoration-none" href="https://mdbootstrap.com/">MAD'S Translation</a>
+<script>
+let year = new Date().getFullYear();
+document.getElementById("copyrightYear").innerHTML = year + " Copyright";
+</script>
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
