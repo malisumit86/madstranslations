@@ -93,7 +93,7 @@ def home(request):
             x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
             cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
 
-        
+        plt.imshow(img)
         plt.savefig('media/plotimage/plot.png')
         
         # Plot Image Logic Ends
