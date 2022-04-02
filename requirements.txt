@@ -7,7 +7,7 @@ asgiref==3.5.0
 asn1crypto 
 astor==0.8.1
 astroid 
-astropy==4.0.2
+astropy==5.0.4
 asttokens==2.0.5
 async-generator==1.10
 atomicwrites==1.4.0
@@ -48,7 +48,7 @@ conda-verify==3.4.2
 contextlib2==0.6.0.post1
 cryptography 
 cycler==0.10.0
-Cython 
+Cython== 3.0.0a10
 cytoolz==0.11.0
 dask 
 debugpy==1.5.1
