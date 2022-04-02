@@ -1,7 +1,6 @@
 alabaster==0.7.12
 altair==4.1.0
 anaconda-client
-anaconda-project
 argh==0.26.2
 argon2-cffi
 asgiref==3.5.0
