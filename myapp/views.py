@@ -24,7 +24,7 @@ from langdetect import detect
 # ML import Ends
 
 # ML pytesseract path start
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
 # ML pytesseract path end
 
 # ML Store array start
