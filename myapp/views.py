@@ -25,6 +25,7 @@ from langdetect import detect
 
 # ML pytesseract path start
 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+# pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 # ML pytesseract path end
 
 # ML Store array start
@@ -59,65 +60,137 @@ def home(request):
     form = ImageForm()
 
     if langip and transip:
-        translator = Translator()
-        lang_code_ip = pytess_dict.get(langip.lower())
+        if langip == "Auto Detect":
+            lang_code_ip = lang_string
+            print(f"If Auto Detect Pressed--> {lang_code_ip}")
 
-        transip = transip.strip()
-        if (transip.isalpha()):
-            key_list = list(googletrans.LANGUAGES.keys())
-            val_list = list(googletrans.LANGUAGES.values())
+            Img = C_Image.objects.filter().last()
+            # ML for extracting text start
+            img_path = 'media/' + str(Img.photo)
+            print(f"image path---->{img_path}")
+            
+            img = cv2.imread(img_path)
+            imgH, imgW,_ = img.shape
 
-            position1 = val_list.index(transip.lower())
-            position2 = val_list.index(langip.lower())
-            src_from = key_list[position2]
-            translated_to = key_list[position1]
+
+            # here we have to provide "lang_code_ip" variable
+            imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip)
+
+            for boxes in imgbox.splitlines():
+                boxes = boxes.split(' ')
+                x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
+                cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
+
+            plt.imshow(img)
+            plt.savefig('media/plotimage/plot.png')
+
+            try:
+                img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip)
+            except:
+                img2char = "Error Occured Unable Extract Text from provided image...!!!!"
+            
+            detectedLangCode = detect(img2char)
+            detectedLangName = googletrans.LANGUAGES.get(detectedLangCode)
+            translator = Translator()
+            transip = transip.strip()
+            if (transip.isalpha()):
+                key_list = list(googletrans.LANGUAGES.keys())
+                val_list = list(googletrans.LANGUAGES.values())
+
+                position1 = val_list.index(transip.lower())
+                src_from = detectedLangCode
+                translated_to = key_list[position1]
+            else:
+                print("Please Enter Valid Input.")
+            
+            try:
+                # img2char = pytesseract.image_to_string(img_path, lang=lang_code_ip)
+                translated_text = translator.translate(text=img2char, dest=translated_to, src=src_from)
+            except:
+                context = {
+                'form': form,
+                'img': Img,
+                'img2char': img2char,
+                'translated_text': "Blank Image Uploaded......!",
+                'plot_path' : "Blank Image Uploaded......!"
+                }
+            else:
+                context = {
+                'form': form,
+                'img': Img,
+                'img2char': img2char,
+                'translated_text': translated_text.text,
+                'plot_path' : "media/plotimage/plot.png"
+                }
+            
+
+
+
+
         else:
-            print("Please Enter Valid Input.")
-        # Got Uploaded Image Access->[Imag = img.photo]
-        Img = C_Image.objects.filter().last()
-
-        # ML for extracting text start
-
-        img_path = 'media/' + str(Img.photo)
-
-        print(f"image path---->{img_path}")
-
-        # Plot Image logic Start
-
-        img = cv2.imread(img_path)
-        imgH, imgW,_ = img.shape
-        imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip)
-
-        for boxes in imgbox.splitlines():
-            boxes = boxes.split(' ')
-            x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
-            cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
-
-        plt.imshow(img)
-        plt.savefig('media/plotimage/plot.png')
+            lang_code_ip = pytess_dict.get(langip.lower())
+            print(f"If Auto Detect Not Pressed--> {lang_code_ip}")
         
-        # Plot Image Logic Ends
+            translator = Translator()
+            transip = transip.strip()
+            if (transip.isalpha()):
+                key_list = list(googletrans.LANGUAGES.keys())
+                val_list = list(googletrans.LANGUAGES.values())
+
+                position1 = val_list.index(transip.lower())
+                position2 = val_list.index(langip.lower())
+                src_from = key_list[position2]
+                translated_to = key_list[position1]
+            else:
+                print("Please Enter Valid Input.")
+            # Got Uploaded Image Access->[Imag = img.photo]
+            Img = C_Image.objects.filter().last()
+
+            # ML for extracting text start
+
+            img_path = 'media/' + str(Img.photo)
+
+            print(f"image path---->{img_path}")
+
+            # Plot Image logic Start
+
+            img = cv2.imread(img_path)
+            imgH, imgW,_ = img.shape
 
 
-        try:
-            img2char = pytesseract.image_to_string(img_path, lang=lang_code_ip)
-            translated_text = translator.translate(text=img2char, dest=translated_to, src=src_from)
-        except:
-            context = {
-            'form': form,
-            'img': Img,
-            'img2char': img2char,
-            'translated_text': "Blank Image Uploaded......!",
-            'plot_path' : "Blank Image Uploaded......!"
-            }
-        else:
-            context = {
-            'form': form,
-            'img': Img,
-            'img2char': img2char,
-            'translated_text': translated_text.text,
-            'plot_path' : "media/plotimage/plot.png"
-            }
+            # here we have to provide "lang_code_ip" variable
+            imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip)
+
+            for boxes in imgbox.splitlines():
+                boxes = boxes.split(' ')
+                x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
+                cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
+
+            plt.imshow(img)
+            plt.savefig('media/plotimage/plot.png')
+            
+            # Plot Image Logic Ends
+
+
+            try:
+                img2char = pytesseract.image_to_string(img_path, lang=lang_code_ip)
+                translated_text = translator.translate(text=img2char, dest=translated_to, src=src_from)
+            except:
+                context = {
+                'form': form,
+                'img': Img,
+                'img2char': img2char,
+                'translated_text': "Blank Image Uploaded......!",
+                'plot_path' : "Blank Image Uploaded......!"
+                }
+            else:
+                context = {
+                'form': form,
+                'img': Img,
+                'img2char': img2char,
+                'translated_text': translated_text.text,
+                'plot_path' : "media/plotimage/plot.png"
+                }
     else:
         context = {
         'form': form,
