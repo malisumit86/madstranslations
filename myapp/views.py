@@ -238,7 +238,8 @@ def pdfupload(request):
 
             pdf = Pdf.objects.filter().last()
             pdf_path = 'media/' + str(pdf.pdf)
-            doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin')
+            # doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin')
+            doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils')
             path, fileName = os.path.split(pdf_path)
             fileBaseName, fileExtension = os.path.splitext(fileName)
 
