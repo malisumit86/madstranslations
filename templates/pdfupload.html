@@ -3,71 +3,118 @@
 
 {% block title %}UploadPdf{% endblock title %}
 {% block body %}
-<div class="d-flex flex-row h-auto my-5 py-5  flex-wrap justify-content-center " style="min-width:200px; background-color:#E5E7E9;;">
+<div class="d-flex flex-row h-auto my-5 py-5  flex-wrap justify-content-center "
+    style="min-width:200px; background-color:#E5E7E9;;">
     <div class="py-2 px-5 " style="width: 720px; background-color:#A569BD;">
-        <form  method="post" action="/pdfupload" enctype="multipart/form-data" >
+        <form method="post" action="/pdfupload" enctype="multipart/form-data">
             {% csrf_token %}
-                <div id="header" class="text-center my-2 p-2">
-                    <h4 style="top:20px">Upload Pdf</h4>
-                </div>
-                <div id="form" class="py-2">
-                    {{uploadpdf}}
-                </div>
-                <div id="submit" class="d-flex flex-row py-2 justify-content-between flex-wrap">
-                    <div class="d-flex flex-column">
-                        <select id="inputLang" name="lang_ip" class="form-control my-2 mx-0 " style="width: 220px;" required>
-                            <option value="" selected>Choose language</option>
-                            <option value="Marathi">Marathi</option>
-                            <option value="English">English</option>
-                            <option value="French">French</option>
-                            <option value="Hindi">Hindi</option>
-                            <option value="Spanish">Spanish</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-column align-items-center" style="width:50px;" >
-                        <h4>To</h4>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <select id="inputLang" name="trans_ip" class="form-control my-2 mx-0 "
-                        style="width: 220px;" required>
+            <div id="header" class="text-center my-2 p-2">
+                <h4 style="top:20px">Upload Pdf</h4>
+                <p>(Less than 500 words)</p>
+            </div>
+            <div id="form" class="py-2">
+                {{uploadpdf}}
+            </div>
+            <div id="submit" class="d-flex flex-row py-2 justify-content-between flex-wrap">
+                <div class="d-flex flex-column">
+                    <select id="inputLang" name="lang_ip" class="form-control my-2 mx-0 " style="width: 220px;"
+                        required>
                         <option value="" selected>Choose language</option>
-                        <option value="Marathi">Marathi</option>
-                        <option value="English">English</option>
-                        <option value="French">French</option>
+                        {% comment %} <option value="Auto Detect"> <i class="fa fa-magic" aria-hidden="true"></i> Auto Detect</option> {% endcomment %}
                         <option value="Hindi">Hindi</option>
-                        <option value="Spanish">Spanish</option>
-                    </select>
-                    </div>
-                </div>
+                        <option value="Marathi">Marathi</option>
+                        {% comment %} <option value="Sanskrit">Sanskrit</option> {% endcomment %}
+                        <option value="Bengali">Bengali</option>
+                        <option value="Gujrati">Gujrathi</option>
 
-                <div id="submit_btn" class="text-center my-2">
-                    <button type="submit" class="btn text-light" style="width:150px; background-color: #7B241C;">Submit</button>
+                        <option value="Punjabi">Punjabi</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Telugu">Telugu</option>
+                        <option value="Kannada">Kannada</option>
+                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
+
+                        <option value="English">English</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Italian">Italian</option>
+
+                        <option value="Greek">Greek</option>
+                        <option value="French">French</option>
+                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
+                        <option value="Nepali">Nepali</option>
+                        <option value="Latin">Latin</option>
+                    </select>
                 </div>
-                <div id="img_uploaded my-3 py-2" class="text-center" style="max-height:450px;">
-                     <img  src="media/myimage/PDFLOGO.png" class="img-fluid mt-5 mb-2" style="max-height :200px;border-radius:20px;" alt="">
-                    <h4 class="mb-3">{{pdf_root}}</h4>
+                <div class="d-flex flex-column align-items-center" style="width:50px;">
+                    <h4>To</h4>
                 </div>
+                <div class="d-flex flex-column">
+                    <select id="inputLang" name="trans_ip" class="form-control my-2 mx-0 " style="width: 220px;"
+                        required>
+                        <option value="" selected>Choose language</option>
+                        
+                        <option value="Hindi">Hindi</option>
+                        <option value="Marathi">Marathi</option>
+                        {% comment %} <option value="Sanskrit">Sanskrit</option> {% endcomment %}
+                        <option value="Bengali">Bengali</option>
+                        <option value="Gujrati">Gujrathi</option>
+
+                        <option value="Punjabi">Punjabi</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Telugu">Telugu</option>
+                        <option value="Kannada">Kannada</option>
+                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
+
+                        <option value="English">English</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Portuguese">Portuguese</option>
+                        <option value="Italian">Italian</option>
+
+                        <option value="Greek">Greek</option>
+                        <option value="French">French</option>
+                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
+                        <option value="Nepali">Nepali</option>
+                        <option value="Latin">Latin</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="submit_btn" class="text-center my-2">
+                <button type="submit" class="btn text-light"
+                    style="width:150px; background-color: #7B241C;">Submit</button>
+            </div>
+            <div id="img_uploaded my-3 py-2" class="text-center" style="max-height:450px;">
+                <img src="media/myimage/PDFLOGO.png" class="img-fluid mt-5 mb-2"
+                    style="max-height :200px;border-radius:20px;" alt="">
+                <h4 class="mb-3">{{pdf_root}}</h4>
+            </div>
         </form>
     </div>
 
     <div class="p-2 px-3 " style="width: 720px; background-color: #5DADE2  ;">
         <div id="extract_header">
-            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Extracted Text from Image</h4>
+            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Extracted <span style="color: #5B2C6F ;">
+                {{From_lang}}
+            </span> Text from Image</h4>
         </div>
         <div id="extract_text" style="max-height:300px; overflow:auto">
             <p class="text-black">{{extracted}}</p>
-            
-   
+
+
         </div>
         <div id="trans_header">
-            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Translated Text from Image</h4>
+            <h4 class="mt-1 mb-3 p-2 " style="background-color:#F7F9F9 ;">Translated <span style="color: #5B2C6F ;">
+                {{To_lang}}
+            </span> Text from Image</h4>
         </div>
-        <div id="trans_text" class="scrollbar scrollbar-primary"  style="max-height:300px; overflow:auto">
+        <div id="trans_text" class="scrollbar scrollbar-primary" style="max-height:300px; overflow:auto">
             <div class="force-overflow">
                 <p>{{translated_text}}</p>
 
             </div>
-            
+
         </div>
 
     </div>

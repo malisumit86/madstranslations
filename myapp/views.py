@@ -23,8 +23,8 @@ from langdetect import detect
 # ML import Ends
 
 # ML pytesseract path start
-pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-# pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+# pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 # ML pytesseract path end
 
 # ML Store array start
@@ -34,11 +34,28 @@ lang_string = '+'.join(languages)
 # ML Store array ends
 
 pytess_dict = {
-    'marathi': 'mar',
-    'english': 'eng',
     'hindi': 'hin',
+    'marathi': 'mar',
+    'bengali' : 'ben',
+    'gujrati' : 'guj',
+    'punjabi': 'pan',
+
+
+    'tamil': 'tam',
+    'Telugu': 'tel',
+    'Kannada': 'kan',
+    'English' : 'eng',
+    'Spanish': 'spa',
+    
+    'Russian': 'rus',
+    'Portuguese': 'por',
+    'Italian': 'ita',
+    'Greek' : 'gre',
     'french': 'fra',
-    'spanish': 'spa'
+
+    'Nepali': 'nep',
+    'Latin': 'lta',
+   
 }
 
 dict = {}
@@ -111,7 +128,9 @@ def home(request):
                 'img': Img,
                 'img2char': img2char,
                 'translated_text': "Blank Image Uploaded......!",
-                'plot_path' : "Blank Image Uploaded......!"
+                'plot_path' : "Blank Image Uploaded......!",
+                'From_lang' : "",
+                'To_lang' : ""
                 }
             else:
                 context = {
@@ -119,7 +138,9 @@ def home(request):
                 'img': Img,
                 'img2char': img2char,
                 'translated_text': translated_text.text,
-                'plot_path' : "media/plotimage/plot.png"
+                'plot_path' : "media/plotimage/plot.png",
+                'From_lang' : detectedLangName,
+                'To_lang' : transip
                 }
         else:
             lang_code_ip = pytess_dict.get(langip.lower())
@@ -175,7 +196,9 @@ def home(request):
                 'img': Img,
                 'img2char': img2char,
                 'translated_text': "Blank Image Uploaded......!",
-                'plot_path' : "Blank Image Uploaded......!"
+                'plot_path' : "Blank Image Uploaded......!",
+                'From_lang' : "",
+                'To_lang' : ""
                 }
             else:
                 context = {
@@ -183,7 +206,9 @@ def home(request):
                 'img': Img,
                 'img2char': img2char,
                 'translated_text': translated_text.text,
-                'plot_path' : "media/plotimage/plot.png"
+                'plot_path' : "media/plotimage/plot.png",
+                'From_lang' : langip,
+                'To_lang' : transip
                 }
     else:
         context = {
@@ -191,7 +216,9 @@ def home(request):
         'img': "Not yet uploaded",
         'img2char': "Not yet uploaded",
         'translated_text': "Not yet uploaded",
-        'plot_path' : "Not yet uploaded"
+        'plot_path' : "Not yet uploaded",
+        'From_lang' : "",
+        'To_lang' : ""
 
         }    
     return render(request, 'home.html', context)
@@ -201,6 +228,7 @@ def home(request):
 def pdfupload(request):
     pdf_langip = ''
     pdf_transip = ''
+    
     if request.method == "POST":
         pdf_langip = request.POST.get('lang_ip')
         pdf_transip = request.POST.get('trans_ip')
@@ -233,7 +261,13 @@ def pdfupload(request):
 
             pdf = Pdf.objects.filter().last()
             pdf_path = 'media/' + str(pdf.pdf)
-            doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin')
+            # doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin')
+
+            try:
+                doc = convert_from_path(pdf_path,poppler_path='media/poppler-0.68.0_x86/poppler-0.68.0/bin',timeout=600)
+            except:
+                messages.success(request, "Mads Translation Timeout Error..")
+            
             path, fileName = os.path.split(pdf_path)
             fileBaseName, fileExtension = os.path.splitext(fileName)
 
@@ -269,21 +303,27 @@ def pdfupload(request):
                 'uploadpdf' : pdf_form,
                 'pdf_root' : str(pdf.pdf),
                 'extracted' : str_pdf2img,
-                'translated_text' : translated_text.text
+                'translated_text' : translated_text.text,
+                'From_lang' : pdf_langip,
+                'To_lang' : pdf_transip
             }
         else:
             context = {
                 'uploadpdf' : pdf_form,
                 'pdf_root' :"Not yet uploaded",
                 'extracted' :"Not yet uploaded",
-                'translated_text' : "Not yet uploaded"
+                'translated_text' : "Not yet uploaded",
+                'From_lang' : '',
+                'To_lang' : ''
             }      
     else:
         context = {
                 'uploadpdf' : pdf_form,
                 'pdf_root' :"Not yet uploaded",
                 'extracted' :"Not yet uploaded",
-                'translated_text' : "Not yet uploaded"
+                'translated_text' : "Not yet uploaded",
+                'From_lang' : '',
+                'To_lang' : ''
             }
         
 
@@ -341,7 +381,9 @@ def textupload(request):
     context = {
         'text_area_ip' : text_area,
         'translated_text' : translated_text.text,
-        'detectedLangName' : detectedLangName.upper()
+        'detectedLangName' : detectedLangName.upper(),
+        # 'From_lang' : text_ip,
+        # 'To_lang' : text_trans
     }
         
     return render(request,'textupload.html',context)
