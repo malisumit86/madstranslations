@@ -1,7 +1,6 @@
 # Django import start
-from sunau import Au_read
 from django.shortcuts import render, HttpResponse
-from myapp.models import Contact, Image as C_Image ,Pdf,Capture
+from myapp.models import Contact, Image as C_Image ,Pdf
 from datetime import datetime
 from django.contrib import messages
 from .forms import ImageForm,PdfPage
@@ -122,11 +121,6 @@ def home(request):
                 'translated_text': translated_text.text,
                 'plot_path' : "media/plotimage/plot.png"
                 }
-            
-
-
-
-
         else:
             lang_code_ip = pytess_dict.get(langip.lower())
             print(f"If Auto Detect Not Pressed--> {lang_code_ip}")
@@ -203,6 +197,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 # ----------------------------------------------------------------------------------------------
+# doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils')
 def pdfupload(request):
     pdf_langip = ''
     pdf_transip = ''
@@ -238,8 +233,7 @@ def pdfupload(request):
 
             pdf = Pdf.objects.filter().last()
             pdf_path = 'media/' + str(pdf.pdf)
-            # doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin')
-            doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils')
+            doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin')
             path, fileName = os.path.split(pdf_path)
             fileBaseName, fileExtension = os.path.splitext(fileName)
 
@@ -352,92 +346,18 @@ def textupload(request):
         
     return render(request,'textupload.html',context)
 # -------------------------------------------------------------------------------
-@csrf_exempt
-def capture(request):
-    if request.method == 'POST':
-        print("hello")
-        data_url = request.POST.get('data_url')
-        byte_data = data_url[23:]
-        b = base64.b64decode(byte_data)
-        img = Image.open(io.BytesIO(b))
-        img.save("media/Capture/sumit.png")
-
-        a = Capture(photo = "Capture/sumit.png")
-        if a:
-            a.save()
-        else:
-            messages.success(request, "Please Upload Again...!")
-
-    return render(request,'capture.html')
-
-#-----------------------------------------------------------------------------
-
-def captured_translate(request):
-    langip = ''
-    transip = ''
-    if request.method == "POST":
-        langip = request.POST.get('lang_ip')
-        transip = request.POST.get('trans_ip')
-
-    print(f"{langip}-----------{transip} ")
-
-    if langip and transip:
-        translator = Translator()
-        lang_code_ip = pytess_dict.get(langip.lower())
-
-        transip = transip.strip()
-        if (transip.isalpha()):
-            key_list = list(googletrans.LANGUAGES.keys())
-            val_list = list(googletrans.LANGUAGES.values())
-
-            position1 = val_list.index(transip.lower())
-            position2 = val_list.index(langip.lower())
-            src_from = key_list[position2]
-            translated_to = key_list[position1]
-        else:
-            print("Please Enter Valid Input.")
-        
-        Img = Capture.objects.filter().last()
-
-        img_path = 'media/' + str(Img.photo)
-        print(f"path------{img_path}")
-
-        img_path = 'media/' + str(Img.photo)
-
-        try:
-            img2char = pytesseract.image_to_string(img_path, lang=lang_code_ip)
-            translated_text = translator.translate(text=img2char, dest=translated_to, src=src_from)
-        except:
-            print("love-----------")
-            context = {
-            'img': Img,
-            'img2char': img2char,
-            'translated_text': "Blank Image Uploaded......!"
-            }
-        else:
-            context = {
-            'img': Img,
-            'img2char': img2char,
-            'translated_text': translated_text.text
-            }
-    else:
-        context = {
-        'img': "Not yet uploaded",
-        'img2char': "Not yet uploaded",
-        'translated_text': "Not yet uploaded"
-        }
-    return render(request,'capture.html',context)
-
 
 def about(request):
     # return HttpResponse('Hello Sumit ....From about')
     return render(request, 'about.html')
 
+# -------------------------------------------------------------------------------
 
 def services(request):
     # return HttpResponse('Hello Sumit ....From services')
     return render(request, 'services.html')
 
+# -------------------------------------------------------------------------------
 
 def contact(request):
     # return HttpResponse('Hello Sumit ....From contact')
@@ -457,3 +377,5 @@ def contact(request):
         messages.success(request, "Your Form has been successfully submitted!")
 
     return render(request, 'contact.html')
+
+    # -------------------------------------------------------------------------------
