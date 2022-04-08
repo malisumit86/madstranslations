@@ -21,11 +21,7 @@ tesseract-ocr-spa
 tesseract-ocr-rus
 tesseract-ocr-por
 tesseract-ocr-ita
-
-
 tesseract-ocr-fra
-
 tesseract-ocr-nep
-
 poppler-utils
 build-essential libpoppler-cpp-dev pkg-config python3-dev
