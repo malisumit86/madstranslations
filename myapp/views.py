@@ -23,8 +23,8 @@ from langdetect import detect
 # ML import Ends
 
 # ML pytesseract path start
-pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-# pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+# pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 # ML pytesseract path end
 
 # ML Store array start
@@ -90,7 +90,7 @@ def home(request):
 
 
             # here we have to provide "lang_code_ip" variable
-            imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip)
+            imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip ,timeout = 600)
 
             for boxes in imgbox.splitlines():
                 boxes = boxes.split(' ')
@@ -101,7 +101,7 @@ def home(request):
             plt.savefig('media/plotimage/plot.png')
 
             try:
-                img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip)
+                img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
             except:
                 img2char = "Error Occured Unable Extract Text from provided image...!!!!"
             
@@ -261,9 +261,9 @@ def pdfupload(request):
 
             pdf = Pdf.objects.filter().last()
             pdf_path = 'media/' + str(pdf.pdf)
-            # doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin',timeout=600)
+            doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin',timeout=600)
 
-            doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils',timeout=600)
+            # doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils',timeout=600)
 
             # doc = convert_from_path(pdf_path,poppler_path='media\\poppler-0.68.0_x86\\poppler-0.68.0\\bin',timeout=600)
             
