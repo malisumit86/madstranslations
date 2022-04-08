@@ -94,13 +94,14 @@ def home(request):
 
             try:
                 imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip ,timeout = 600)
+                for boxes in imgbox.splitlines():
+                  boxes = boxes.split(' ')
+                  x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
+                  cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
             except:
                 imgbox = "Error Occured Unable Detect Text from provided image...!!!!"
 
-            for boxes in imgbox.splitlines():
-                boxes = boxes.split(' ')
-                x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
-                cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
+           
 
             plt.imshow(img)
             plt.savefig('media/plotimage/plot.png')
