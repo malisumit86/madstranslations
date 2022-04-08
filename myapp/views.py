@@ -104,11 +104,13 @@ def home(request):
 
             plt.imshow(img)
             plt.savefig('media/plotimage/plot.png')
-
-            try:
-                img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
-            except:
-                img2char = "Error Occured Unable Extract Text from provided image...!!!!"
+            
+            img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
+            
+#             try:
+#                 img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
+#             except:
+#                 img2char = "Error Occured Unable Extract Text from provided image...!!!!"
             
             detectedLangCode = detect(img2char)
             detectedLangName = googletrans.LANGUAGES.get(detectedLangCode)
