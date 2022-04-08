@@ -95,7 +95,7 @@ def home(request):
             try:
                 imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip ,timeout = 600)
             except:
-                img2char = "Error Occured Unable Detect Text from provided image...!!!!"
+                imgbox = "Error Occured Unable Detect Text from provided image...!!!!"
 
             for boxes in imgbox.splitlines():
                 boxes = boxes.split(' ')
@@ -105,12 +105,12 @@ def home(request):
             plt.imshow(img)
             plt.savefig('media/plotimage/plot.png')
             
-            img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
+#             img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
             
-#             try:
-#                 img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
-#             except:
-#                 img2char = "Error Occured Unable Extract Text from provided image...!!!!"
+            try:
+                img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 600)
+            except:
+                img2char = "Error Occured Unable Extract Text from provided image...!!!!"
             
             detectedLangCode = detect(img2char)
             detectedLangName = googletrans.LANGUAGES.get(detectedLangCode)
