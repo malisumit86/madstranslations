@@ -93,7 +93,7 @@ def home(request):
             
 
             try:
-                imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip ,timeout=60)
+                imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip ,timeout = 90)
                 for boxes in imgbox.splitlines():
                     boxes = boxes.split(' ')
                     x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
@@ -107,7 +107,7 @@ def home(request):
             plt.savefig('media/plotimage/plot.png')
 
             try:
-                img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout=60)
+                img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 90)
             except:
                 img2char = "Error Occured Unable Extract Text from provided image...!!!!"
             
