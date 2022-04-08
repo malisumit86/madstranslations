@@ -6,7 +6,6 @@ libarchive13
 tesseract-ocr
 tesseract-ocr-hin
 tesseract-ocr-mar
-tesseract-ocr-san
 tesseract-ocr-ben
 tesseract-ocr-guj
 
@@ -14,7 +13,7 @@ tesseract-ocr-pan
 tesseract-ocr-tam
 tesseract-ocr-tel
 tesseract-ocr-kan
-tesseract-ocr-asam
+
 
 
 tesseract-ocr-eng
@@ -23,9 +22,10 @@ tesseract-ocr-rus
 tesseract-ocr-por
 tesseract-ocr-ita
 
-tesseract-ocr-gre
+
 tesseract-ocr-fra
-tesseract-ocr-jer
+
 tesseract-ocr-nep
-tesseract-ocr-lta
+
 poppler-utils
+build-essential libpoppler-cpp-dev pkg-config python3-dev

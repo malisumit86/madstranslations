@@ -23,8 +23,8 @@ from langdetect import detect
 # ML import Ends
 
 # ML pytesseract path start
-# pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+# pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 # ML pytesseract path end
 
 # ML Store array start
@@ -224,7 +224,7 @@ def home(request):
     return render(request, 'home.html', context)
 
 # ----------------------------------------------------------------------------------------------
-# doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils')
+
 def pdfupload(request):
     pdf_langip = ''
     pdf_transip = ''
@@ -261,12 +261,11 @@ def pdfupload(request):
 
             pdf = Pdf.objects.filter().last()
             pdf_path = 'media/' + str(pdf.pdf)
-            # doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin')
+            # doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin',timeout=600)
 
-            try:
-                doc = convert_from_path(pdf_path,poppler_path='media/poppler-0.68.0_x86/poppler-0.68.0/bin',timeout=600)
-            except:
-                messages.success(request, "Mads Translation Timeout Error..")
+            doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils',timeout=600)
+
+            # doc = convert_from_path(pdf_path,poppler_path='media\\poppler-0.68.0_x86\\poppler-0.68.0\\bin',timeout=600)
             
             path, fileName = os.path.split(pdf_path)
             fileBaseName, fileExtension = os.path.splitext(fileName)
