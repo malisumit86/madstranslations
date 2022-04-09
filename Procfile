@@ -1,1 +1,1 @@
-web: gunicorn --workers=2 --timeout 6000 imageuploader.wsgi
+web: gunicorn --timeout 300 imageuploader.wsgi
