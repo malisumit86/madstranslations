@@ -1,1 +1,1 @@
-web: gunicorn --workers=3 app:app --timeout 200 --log-file - imageuploader.wsgi
+web: gunicorn --workers=3 app:myapp --timeout 200 --log-file - imageuploader.wsgi
