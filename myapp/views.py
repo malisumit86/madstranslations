@@ -92,19 +92,19 @@ def home(request):
             # here we have to provide "lang_code_ip" variable
             
 
-#             try:
-#                 imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip ,timeout = 90)
-#                 for boxes in imgbox.splitlines():
-#                     boxes = boxes.split(' ')
-#                     x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
-#                     cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
-#             except:
-#                 imgbox = "Error Occured Unable Detect Text from provided image...!!!!"
+            try:
+                imgbox = pytesseract.image_to_boxes((img_path), lang = lang_code_ip ,timeout = 90)
+                for boxes in imgbox.splitlines():
+                    boxes = boxes.split(' ')
+                    x,y,w,h = int(boxes[1]),int(boxes[2]),int(boxes[3]),int(boxes[4])
+                    cv2.rectangle(img,(x,imgH-y),(w,imgH-h),(231, 76, 60),3)
+            except:
+                imgbox = "Error Occured Unable Detect Text from provided image...!!!!"
 
             
 
-#             plt.imshow(img)
-#             plt.savefig('media/plotimage/plot.png')
+            plt.imshow(img)
+            plt.savefig('media/plotimage/plot.png')
 
             try:
                 img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 90)
