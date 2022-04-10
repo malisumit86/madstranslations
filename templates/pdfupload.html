@@ -12,71 +12,67 @@
                 <h4 style="top:20px">Upload Pdf</h4>
                 <p>(Less than 500 words)</p>
             </div>
-            <div id="form" class="py-2">
+            <div id="form" class="py-2" style="margin: auto; display: block;width: 210px">
                 {{uploadpdf}}
             </div>
-            <div id="submit" class="d-flex flex-row py-2 justify-content-between flex-wrap">
-                <div class="d-flex flex-column">
+            <div id="submit" style="--w:200px;
+                --n:3;
+                display:grid;
+                grid-template-columns:repeat(auto-fit,minmax(clamp(100%/(var(--n) + 1) + 0.1%,var(--w),100%),1fr));">
+                <div class="d-flex flex-column align-items-center">
                     <select id="inputLang" name="lang_ip" class="form-control my-2 mx-0 " style="width: 220px;"
                         required>
-                        <option value="" selected>Choose language</option>
+                        <option value="" selected disabled>Choose language</option>
                         {% comment %} <option value="Auto Detect"> <i class="fa fa-magic" aria-hidden="true"></i> Auto Detect</option> {% endcomment %}
-                        <option value="Hindi">Hindi</option>
-                        <option value="Marathi">Marathi</option>
+                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
+                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
                         {% comment %} <option value="Sanskrit">Sanskrit</option> {% endcomment %}
                         <option value="Bengali">Bengali</option>
-                        <option value="Gujrati">Gujrathi</option>
-
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Latin">Latin</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="Nepali">Nepali</option>
+                        <option value="Portuguese">Portuguese</option>
                         <option value="Punjabi">Punjabi</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
                         <option value="Tamil">Tamil</option>
                         <option value="Telugu">Telugu</option>
-                        <option value="Kannada">Kannada</option>
-                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
-
-                        <option value="English">English</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="Russian">Russian</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Italian">Italian</option>
-
-                        <option value="Greek">Greek</option>
-                        <option value="French">French</option>
-                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
-                        <option value="Nepali">Nepali</option>
-                        <option value="Latin">Latin</option>
                     </select>
                 </div>
-                <div class="d-flex flex-column align-items-center" style="width:50px;">
-                    <h4>To</h4>
+                <div class="d-flex flex-column align-items-center text-center">
+                    <h4 style="margin-top: 10px;">To</h4>
                 </div>
-                <div class="d-flex flex-column">
+                <div class="d-flex flex-column align-items-center">
                     <select id="inputLang" name="trans_ip" class="form-control my-2 mx-0 " style="width: 220px;"
                         required>
-                        <option value="" selected>Choose language</option>
-                        
-                        <option value="Hindi">Hindi</option>
-                        <option value="Marathi">Marathi</option>
+                        <option value="" selected disabled>Choose language</option>
+                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
+                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
                         {% comment %} <option value="Sanskrit">Sanskrit</option> {% endcomment %}
                         <option value="Bengali">Bengali</option>
-                        <option value="Gujrati">Gujrathi</option>
-
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Latin">Latin</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="Nepali">Nepali</option>
+                        <option value="Portuguese">Portuguese</option>
                         <option value="Punjabi">Punjabi</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
                         <option value="Tamil">Tamil</option>
                         <option value="Telugu">Telugu</option>
-                        <option value="Kannada">Kannada</option>
-                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
-
-                        <option value="English">English</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="Russian">Russian</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Italian">Italian</option>
-
-                        <option value="Greek">Greek</option>
-                        <option value="French">French</option>
-                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
-                        <option value="Nepali">Nepali</option>
-                        <option value="Latin">Latin</option>
                     </select>
                 </div>
             </div>
@@ -119,4 +115,49 @@
 
     </div>
 </div>
+<footer class="text-center text-white" style="background-color: #f1f1f1;">
+    <!-- Grid container -->
+    <div class="container pt-4">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+            <!-- Facebook -->
+            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+                data-mdb-ripple-color="dark"><i class="fab fa-facebook-f"></i></a>
+
+            <!-- Twitter -->
+            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+                data-mdb-ripple-color="dark"><i class="fab fa-twitter"></i></a>
+
+            <!-- Google -->
+            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+                data-mdb-ripple-color="dark"><i class="fab fa-google"></i></a>
+
+            <!-- Instagram -->
+            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+                data-mdb-ripple-color="dark"><i class="fab fa-instagram"></i></a>
+
+            <!-- Linkedin -->
+            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+                data-mdb-ripple-color="dark"><i class="fab fa-linkedin"></i></a>
+            <!-- Github -->
+            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+                data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
+        </section>
+        <!-- Section: Social media -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center text-dark p-3 " style="background-color: rgba(0, 0, 0, 0.2);">
+        ©
+        <span id="copyrightYear"> </span>
+        <a class="text-dark text-decoration-none" href="https://mdbootstrap.com/"><strong>MAD'S Translation</strong></a>
+        <script>
+            let year = new Date().getFullYear();
+            document.getElementById("copyrightYear").innerHTML = year + " Copyright";
+        </script>
+
+    </div>
+    <!-- Copyright -->
+</footer>
 {% endblock body %}
