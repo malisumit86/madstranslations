@@ -13,7 +13,7 @@ import io
 import base64
 import pytesseract
 import os
-from pdf2image import convert_from_path
+# from pdf2image import convert_from_path
 from PIL import ImageEnhance, ImageFilter, Image
 import cv2
 import matplotlib.pyplot as plt
