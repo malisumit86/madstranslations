@@ -1,15 +1,82 @@
 {% extends 'base.html' %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-{% comment %} {% load widget_tweaks %} {% endcomment %}
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+</head>
 
 {% block title %}Home{% endblock title %}
 {% block body %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+    .not-visible{
+        display: none
+    }
+    .waviy {
+        position: relative;
+      /*   -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0,0,0,.2)); */
+        font-size: 40px;
+      }
+      .waviy span {
+        font-family: 'Alfa Slab One', cursive;
+        position: relative;
+        display: inline-block;
+      /*   color: #fff; */
+        text-transform: uppercase;
+        animation: waviy 1s infinite;
+        animation-delay: calc(.1s * var(--i));
+        
+      }
+      @keyframes waviy {
+        0%,40%,100% {
+          transform: translateY(0)
+        }
+        20% {
+          transform: translateY(-20px)
+        }
+      }
+</style>
+<script>
+
+$(document).ready(function(){
+    $("#submit_btn").click(function(){
+      $("#spinner-box").removeClass("not-visible");
+      $("#main-div").addClass("not-visible");
+    });
+  });
 
 
+    if($('#extract_text').text().length > 0){
+        $("#main-div").removeClass("not-visible");
+        $('#spinner-box').remove();
 
+    }    
 
+</script>
 
+<div id="spinner-box" class ="text-center not-visible" style="position: absolute;
+top: 50%;
+left: 50%;
+-ms-transform: translateX(-50%) translateY(-50%);
+-webkit-transform: translate(-50%,-50%);
+transform: translate(-50%,-50%);"> 
+<div class="waviy">
+    <span style="--i:1">T</span>
+    <span style="--i:2">R</span>
+    <span style="--i:3">A</span>
+    <span style="--i:4">N</span>
+    <span style="--i:5">S</span>
+    <span style="--i:6">L</span>
+    <span style="--i:7">A</span>
+    <span style="--i:8">T</span>
+    <span style="--i:9">I</span>
+    <span style="--i:10">N</span>
+    <span style="--i:11">G</span>
+    <span style="--i:12">.</span>
+    <span style="--i:13">.</span>
+    <span style="--i:14">.</span>
+</div>
+</div>
+<div id="main-div">
 <div class="d-flex flex-row h-auto my-5 py-5  flex-wrap justify-content-center "
     style="min-width:200px; background-color:#E5E7E9;">
     <div class="py-2 px-5 " style="width: 720px; background-color:#A569BD;">
@@ -29,31 +96,28 @@
                 <div class="d-flex flex-column align-items-center">
                     <select id="inputLang" name="lang_ip" class="form-control my-2 mx-0 " style="width: 220px;"
                         required>
-                        <option value="" selected>Choose language</option>
+                        <option value="" selected disabled>Choose language</option>
                         <option value="Auto Detect"> <i class="fa fa-magic" aria-hidden="true"></i> Auto Detect</option>
-                        <option value="Hindi">Hindi</option>
-                        <option value="Marathi">Marathi</option>
+                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
+                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
                         {% comment %} <option value="Sanskrit">Sanskrit</option> {% endcomment %}
                         <option value="Bengali">Bengali</option>
-                        <option value="Gujrati">Gujrathi</option>
-
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Latin">Latin</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="Nepali">Nepali</option>
+                        <option value="Portuguese">Portuguese</option>
                         <option value="Punjabi">Punjabi</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
                         <option value="Tamil">Tamil</option>
                         <option value="Telugu">Telugu</option>
-                        <option value="Kannada">Kannada</option>
-                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
-
-                        <option value="English">English</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="Russian">Russian</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Italian">Italian</option>
-
-                        <option value="Greek">Greek</option>
-                        <option value="French">French</option>
-                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
-                        <option value="Nepali">Nepali</option>
-                        <option value="Latin">Latin</option>
                     </select>
                 </div>
                 <div class="d-flex flex-column align-items-center text-center">
@@ -62,31 +126,27 @@
                 <div class="d-flex flex-column align-items-center">
                     <select id="inputLang" name="trans_ip" class="form-control my-2 mx-0 " style="width: 220px;"
                         required>
-                        <option value="" selected>Choose language</option>
-                        
-                        <option value="Hindi">Hindi</option>
-                        <option value="Marathi">Marathi</option>
+                        <option value="" selected disabled>Choose language</option>
+                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
+                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
                         {% comment %} <option value="Sanskrit">Sanskrit</option> {% endcomment %}
                         <option value="Bengali">Bengali</option>
-                        <option value="Gujrati">Gujrathi</option>
-
+                        <option value="English">English</option>
+                        <option value="French">French</option>
+                        <option value="Greek">Greek</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Gujarati">Gujarati</option>
+                        <option value="Italian">Italian</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Latin">Latin</option>
+                        <option value="Marathi">Marathi</option>
+                        <option value="Nepali">Nepali</option>
+                        <option value="Portuguese">Portuguese</option>
                         <option value="Punjabi">Punjabi</option>
+                        <option value="Russian">Russian</option>
+                        <option value="Spanish">Spanish</option>
                         <option value="Tamil">Tamil</option>
                         <option value="Telugu">Telugu</option>
-                        <option value="Kannada">Kannada</option>
-                        {% comment %} <option value="Assamese">Assamese</option> {% endcomment %}
-
-                        <option value="English">English</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="Russian">Russian</option>
-                        <option value="Portuguese">Portuguese</option>
-                        <option value="Italian">Italian</option>
-
-                        <option value="Greek">Greek</option>
-                        <option value="French">French</option>
-                        {% comment %} <option value="Jerman">Jerman</option> {% endcomment %}
-                        <option value="Nepali">Nepali</option>
-                        <option value="Latin">Latin</option>
                     </select>
                 </div>
             </div>
@@ -144,7 +204,6 @@
 
 </div>
 
-
 <footer class="text-center text-white" style="background-color: #f1f1f1;">
     <!-- Grid container -->
     <div class="container pt-4">
@@ -170,7 +229,7 @@
             <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
                 data-mdb-ripple-color="dark"><i class="fab fa-linkedin"></i></a>
             <!-- Github -->
-            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="#!" role="button"
+            <a class="btn btn-link btn-floating btn-lg text-dark m-1" href="https://github.com/malisumit86/madstranslations" role="button"
                 data-mdb-ripple-color="dark"><i class="fab fa-github"></i></a>
         </section>
         <!-- Section: Social media -->
@@ -190,6 +249,8 @@
     </div>
     <!-- Copyright -->
 </footer>
+</div>
+
 
 
 

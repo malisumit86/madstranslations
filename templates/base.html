@@ -21,7 +21,29 @@
         {% endblock title %} | MADS Translation</title>
   </head>
   <body>
-    
+    <script>
+      $(document).ready(function(){
+        if(window.location.href.includes("about")){
+          $("#about").addClass("active");
+          $("#home").removeClass("active");
+          $("#services").removeClass("active");
+          $("#contact").removeClass("active");
+        }
+        if(window.location.href.includes("upload")){
+          $("#services").addClass("active");
+          $("#home").removeClass("active");
+          $("#about").removeClass("active");
+          $("#contact").removeClass("active");
+        }
+        if(window.location.href.includes("contact")){
+          $("#contact").addClass("active");
+          $("#home").removeClass("active");
+          $("#about").removeClass("active");
+          $("#services").removeClass("active");
+        }
+      });
+    </script>
+
 
     
 {% if messages %}
@@ -41,32 +63,31 @@
           <div style="width: 46px; height: 46px; overflow: hidden; margin: 0px 10px;">
             <img src="{% static 'images/madslogo.png' %}" class="img-fluid">
       </div>
-          <a class="navbar-brand" href="#">MAD'S  Translation</a>
+          <a class="navbar-brand" href="/">MAD'S  Translation</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a id="home" class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/about">About us</a>
+                <a id="about" class="nav-link" href="/about">About us</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="/services" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a id="services" class="nav-link dropdown-toggle" href="/services" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Services
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="/upload">Upload Image</a></li>
-                  <li><a class="dropdown-item" href="/pdfupload">Upload Pdf</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="/textupload">Text Translation</a></li>
                   {% comment %} <li><a class="dropdown-item" href="/capture">Capture Photo</a></li> {% endcomment %}
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link " href="/contact">Contact Us</a>
+                <a id="contact" class="nav-link " href="/contact">Contact Us</a>
               </li>
             </ul>
           </div>
