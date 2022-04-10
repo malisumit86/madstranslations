@@ -5,9 +5,6 @@ class Image(models.Model):
     photo = models.ImageField(upload_to = 'myimage')
     date = models.DateTimeField(auto_now=True)
 
-class Pdf(models.Model):
-    pdf = models.FileField(upload_to = 'mypdf')
-    date = models.DateTimeField(auto_now=True)
 
 class Contact(models.Model):
     mail = models.CharField(max_length=122)

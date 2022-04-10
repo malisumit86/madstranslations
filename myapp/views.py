@@ -1,19 +1,14 @@
 # Django import start
-from django.shortcuts import render, HttpResponse
-from myapp.models import Contact, Image as C_Image ,Pdf
+from django.shortcuts import render
+from myapp.models import Contact, Image as C_Image 
 from datetime import datetime
 from django.contrib import messages
-from .forms import ImageForm,PdfPage
-from django.views.decorators.csrf import csrf_exempt
+from .forms import ImageForm
 # Django import end
 
 # ML import start
 
-import io
-import base64
 import pytesseract
-import os
-from pdf2image import convert_from_path
 from PIL import ImageEnhance, ImageFilter, Image
 import cv2
 import matplotlib.pyplot as plt
@@ -23,13 +18,13 @@ from langdetect import detect
 # ML import Ends
 
 # ML pytesseract path start
-pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-# pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+# pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
+pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 # ML pytesseract path end
 
 # ML Store array start
-languages = ['hin', 'mar', 'san', 'ben', 'guj', 'pan', 'tam', 'tel', 'kan',
-             'asam', 'eng', 'spa', 'rus', 'por', 'ita', 'gre', 'fra', 'jer', 'nep', 'lta']
+languages = ['hin', 'mar','ben', 'guj', 'pan', 'tam', 'tel', 'kan',
+              'eng', 'spa', 'rus', 'por', 'ita', 'gre', 'fra', 'nep', 'lta']
 lang_string = '+'.join(languages)
 # ML Store array ends
 
@@ -228,112 +223,6 @@ def home(request):
 
         }    
     return render(request, 'home.html', context)
-
-# ----------------------------------------------------------------------------------------------
-
-def pdfupload(request):
-    pdf_langip = ''
-    pdf_transip = ''
-    
-    if request.method == "POST":
-        pdf_langip = request.POST.get('lang_ip')
-        pdf_transip = request.POST.get('trans_ip')
-        form = PdfPage(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            pdf_form = PdfPage()
-            validate_pdf = str(Pdf.objects.filter().last().pdf)
-            val_pdf_extension = validate_pdf[-4:]
-            if val_pdf_extension == ".pdf":
-                messages.success(request, "Your Pdf have been successfully submitted!")
-            else:
-                Pdf.objects.filter().last().delete()
-                messages.success(request, "Please Upload Valid Pdf File..!")
-    else:
-        pdf_form = PdfPage()
-        context = {
-                'uploadpdf' : pdf_form,
-                'pdf_root' :"Not yet uploaded",
-                'extracted' :"Not yet uploaded",
-                'translated_text' : "Not yet uploaded"
-            }
-        return render(request, 'pdfupload.html',context)
-
-
-    if val_pdf_extension == ".pdf":
-        if pdf_langip and pdf_langip:
-            translator = Translator()
-            lang_code_ip = pytess_dict.get(pdf_langip.lower())
-
-            pdf = Pdf.objects.filter().last()
-            pdf_path = 'media/' + str(pdf.pdf)
-            doc = convert_from_path(pdf_path,poppler_path='C:\\Program Files\\poppler-0.68.0_x86\\poppler-0.68.0\\bin',timeout=600)
-
-            # doc = convert_from_path(pdf_path,poppler_path='/app/.apt/usr/bin/poppler-utils',timeout=600)
-
-            # doc = convert_from_path(pdf_path,poppler_path='media\\poppler-0.68.0_x86\\poppler-0.68.0\\bin',timeout=600)
-            
-            path, fileName = os.path.split(pdf_path)
-            fileBaseName, fileExtension = os.path.splitext(fileName)
-
-            str_pdf2img = ''
-            for page_number, page_data in enumerate(doc):
-                # print(f'{page_data}{page_number}')
-                txt = pytesseract.image_to_string(page_data,lang=lang_code_ip)
-                page = str(page_number)
-                str_pdf2img = str_pdf2img + "\n" + f"Page ## {page} — {txt}" 
-
-            
-
-            pdf_transip = pdf_transip.strip()
-            src_form =  'en'
-            translated_to = 'mr'
-
-            if (pdf_transip.isalpha()):
-                key_list = list(googletrans.LANGUAGES.keys())
-                val_list = list(googletrans.LANGUAGES.values())
-
-                position1 = val_list.index(pdf_transip.lower())
-                position2 = val_list.index(pdf_langip.lower())
-                src_from = key_list[position2]
-                translated_to = key_list[position1]
-            else:
-                print("Please Enter Valid Input.")
-
-
-            translated_text = translator.translate(
-                text=str_pdf2img, dest=translated_to, src=src_from)
-
-            context = {
-                'uploadpdf' : pdf_form,
-                'pdf_root' : str(pdf.pdf),
-                'extracted' : str_pdf2img,
-                'translated_text' : translated_text.text,
-                'From_lang' : pdf_langip,
-                'To_lang' : pdf_transip
-            }
-        else:
-            context = {
-                'uploadpdf' : pdf_form,
-                'pdf_root' :"Not yet uploaded",
-                'extracted' :"Not yet uploaded",
-                'translated_text' : "Not yet uploaded",
-                'From_lang' : '',
-                'To_lang' : ''
-            }      
-    else:
-        context = {
-                'uploadpdf' : pdf_form,
-                'pdf_root' :"Not yet uploaded",
-                'extracted' :"Not yet uploaded",
-                'translated_text' : "Not yet uploaded",
-                'From_lang' : '',
-                'To_lang' : ''
-            }
-        
-
-    
-    return render(request, 'pdfupload.html',context)
 
 # ----------------------------------------------------------------------------------
 
