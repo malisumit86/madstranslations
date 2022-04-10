@@ -9,6 +9,7 @@ from .forms import ImageForm
 # ML import start
 
 import pytesseract
+import os
 from PIL import ImageEnhance, ImageFilter, Image
 import cv2
 import matplotlib.pyplot as plt
