@@ -104,11 +104,13 @@ def home(request):
 
             try:
                 img2char = pytesseract.image_to_string((img_path), lang = lang_code_ip,timeout = 90)
+                detectedLangCode = detect(img2char)
+                detectedLangName = googletrans.LANGUAGES.get(detectedLangCode)
             except:
                 img2char = "Error Occured Unable Extract Text from provided image...!!!!"
-            
-            detectedLangCode = detect(img2char)
-            detectedLangName = googletrans.LANGUAGES.get(detectedLangCode)
+                detectedLangCode = " "
+                detectedLangName = " "            
+
             translator = Translator()
             transip = transip.strip()
             if (transip.isalpha()):
