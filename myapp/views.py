@@ -20,7 +20,7 @@ from langdetect import detect
 
 # ML pytesseract path start
 pytesseract.pytesseract.tesseract_cmd = '/app/.apt/usr/bin/tesseract'
-pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+# pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
 # ML pytesseract path end
 
 # ML Store array start
@@ -213,8 +213,8 @@ def home(request):
                 'form': form,
                 'img': Img,
                 'img2char': " ",
-                'translated_text': "Image Extension does not supported. Please Upload Only .png , .jpeg , .jpg , .jfif",
-                'plot_path' : "Image Extension does not supported. Please Upload Only .png , .jpeg , .jpg , .jfif",
+                'translated_text': "Image Extension does not supported. Please upload only .png , .jpeg , .jpg , .jfif",
+                'plot_path' : "Image Extension does not supported. Please upload only .png , .jpeg , .jpg , .jfif",
                 'From_lang' : " ",
                 'To_lang' : " "
             }    
