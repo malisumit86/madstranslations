@@ -38,6 +38,15 @@ ________________________________________________________________________________
 
 ### SOME GLIMSE
 
+1) Video 1 Upload Storage Image <br/>
+
+https://user-images.githubusercontent.com/64258056/169881936-5baa7e85-4baf-4178-88a5-be0f4517437c.mp4
+
+2) Video 2 Upload Clicked Image <br/>
+
+https://user-images.githubusercontent.com/64258056/169881674-9768e7cb-9c22-4e76-b1c1-2d6a2666721e.mp4
+
+-------------------------------------------------------------------------------------------------------------------------------
 1) INPUT IMAGE EXTRACTION AND TRANSLATION [ ENGLISH ---> TELUGU ]
 
     ![](media/myimage/IMAGE1.PNG) 
