@@ -28,8 +28,10 @@ ________________________________________________________________________________
 _______________________________________________________________________________________________________________________________
 
 ## WEBSITE
+https://madstranslation.herokuapp.com/
 
-GET LIVE EXPERIENCE [MAD'S TRANSLATION](http://translatesmads.herokuapp.com/) WEBSITE.
+GET LIVE EXPERIENCE [MAD'S TRANSLATION1](http://translatesmads.herokuapp.com/) WEBSITE.
+Alternative - [MAD'S TRANSLATION2](https://madstranslation.herokuapp.com/)
 
 _______________________________________________________________________________________________________________________________
 
